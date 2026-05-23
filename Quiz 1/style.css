@@ -1,0 +1,821 @@
+/* =========================
+   GLOBAL & RESET
+========================= */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top, #14142b, #080811);
+    color: #f3f4f6;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* =========================
+   MAIN CONTAINER (INDEX)
+========================= */
+.container{
+    width: 480px;
+    margin: 60px auto;
+    padding: 35px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(0, 245, 255, 0.05);
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+h1{
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #00f5ff, #7c4dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+p{
+    color: #9ca3af;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+/* =========================
+   IMAGE SLIDER
+========================= */
+.slider {
+    width: 100%;
+    height: 250px; /* Կարող ես սա փոխել ըստ քո ցանկության */
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.slider::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13, 13, 23, 0.85), transparent);
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    /* Սա ամենակարևոր տողն է. նկարը կպահպանի իր ձևը և կլրացնի բլոկը */
+    object-fit: cover; 
+    /* Նկարը կկենտրոնացվի, որպեսզի կարևոր մասերը չկտրվեն */
+    object-position: center; 
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+/* =========================
+   BUTTONS (COMMON)
+========================= */
+a.button, button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 90%;
+    margin: 16px auto;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* START BUTTON */
+.start {
+    background: linear-gradient(135deg, #05ffa1, #00e5ff);
+    color: #050510;
+    box-shadow: 0 4px 20px rgba(5, 255, 161, 0.2);
+}
+.start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(5, 255, 161, 0.4);
+}
+
+/* ADMIN BUTTON */
+.admin {
+    background: linear-gradient(135deg, #ff3366, #ff6b4a);
+    box-shadow: 0 4px 20px rgba(255, 51, 102, 0.2);
+}
+.admin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(255, 51, 102, 0.4);
+}
+
+/* SUBMIT BUTTON */
+button {
+    background: linear-gradient(135deg, #7c4dff, #00f5ff);
+    box-shadow: 0 4px 20px rgba(124, 77, 255, 0.2);
+    width: 100%;
+}
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(124, 77, 255, 0.4);
+}
+
+/* =========================
+   GAME / QUIZ CONTAINER
+========================= */
+.game-container{
+    max-width: 700px;
+    width: 90%;
+    margin: 50px auto;
+}
+
+.game-title{
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+/* QUESTION CARD */
+.card{
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    margin-bottom: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: border 0.3s;
+}
+
+.card:hover {
+    border-color: rgba(0, 245, 255, 0.2);
+}
+
+.card h3{
+    margin-bottom: 22px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* OPTIONS (LABELS) */
+label{
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    margin: 12px 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+label:hover{
+    background: rgba(0, 245, 255, 0.06);
+    border-color: rgba(0, 245, 255, 0.2);
+    transform: translateX(4px);
+}
+
+/* CUSTOM RADIO BUTTONS */
+input[type="radio"]{
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    margin-right: 14px;
+    outline: none;
+    display: grid;
+    place-content: center;
+    transition: all 0.2s ease;
+}
+
+input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 0.2s transform ease-in-out;
+    background: #00f5ff;
+    box-shadow: 0 0 10px #00f5ff;
+}
+
+input[type="radio"]:checked {
+    border-color: #00f5ff;
+}
+
+input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+/* Երբ տարբերակը ընտրված է, label-ի ֆոնը փոխվի */
+label:has(input[type="radio"]:checked) {
+    background: rgba(0, 245, 255, 0.08);
+    border-color: rgba(0, 245, 255, 0.4);
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+.result-box {
+    max-width: 450px;
+    margin: 80px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.result-title {
+    font-size: 30px;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+.score-circle {
+    width: 130px;
+    height: 130px;
+    line-height: 126px;
+    border-radius: 50%;
+    background: rgba(124, 77, 255, 0.1);
+    border: 3px solid #7c4dff;
+    margin: 0 auto 25px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #00f5ff;
+    text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+    box-shadow: 0 0 20px rgba(124, 77, 255, 0.2);
+}
+
+.result-text {
+    font-size: 18px;
+    color: #e5e7eb;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   ADMIN PANEL
+========================= */
+.admin-container{
+    width: 500px;
+    margin: 50px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.admin-title{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff3366, #ff6b4a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* INPUTS */
+input[type="text"], input[type="number"]{
+    width: 100%;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus{
+    border-color: #ff3366;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.1);
+}
+
+input::placeholder{
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* =========================
+   LANGUAGE SWITCH
+========================= */
+.lang-switch{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.lang-btn{
+    padding: 8px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    color: #9ca3af;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s;
+}
+
+.lang-btn:hover{
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.lang-btn.active{
+    color: #fff;
+    background: linear-gradient(135deg, #00f5ff, #7c4dff);
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:768px){
+    .container, .admin-container, .result-box{
+        width: 92%;
+        margin: 30px auto;
+        padding: 25px;
+    }
+    .game-container{
+        width: 95%;
+    }
+    h1{
+        font-size: 30px;
+    }
+    .slider{
+        height: 200px;
+    }
+}
+
+/* =========================
+   AUTH CONTAINER (LOGIN/REGISTER)
+========================= */
+.auth-container{
+    width: 450px;
+    margin: 50px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.auth-title{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00f5ff, #7c4dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Input styles for auth forms */
+.auth-container input[type="text"],
+.auth-container input[type="email"],
+.auth-container input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin: 8px 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.auth-container input:focus {
+    border-color: #00f5ff;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.1);
+}
+
+.auth-container button {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* TOP BAR */
+.top-bar {
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-menu {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.user-menu a {
+    display: inline-block;
+}
+
+/* =========================
+   PERCENTAGE DISPLAY STYLES
+========================= */
+.percentage-container {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+}
+
+.percentage-label {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.percentage-value {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px currentColor;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1s ease-in-out;
+    animation: progressAnimation 1.5s ease-out;
+}
+
+@keyframes progressAnimation {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--progress-width);
+    }
+}
+
+/* Grade Box */
+.grade-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px;
+    border: 2px solid;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.02);
+    margin-top: 10px;
+}
+
+.grade-icon {
+    font-size: 28px;
+}
+
+.grade-text {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Result Buttons */
+.result-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.result-buttons .button {
+    width: auto;
+    min-width: 140px;
+    margin: 0;
+}
+
+/* Additional Stats */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #00f5ff;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 5px;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    .percentage-value {
+        font-size: 36px;
+    }
+    
+    .grade-text {
+        font-size: 16px;
+    }
+    
+    .grade-icon {
+        font-size: 22px;
+    }
+    
+    .result-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .result-buttons .button {
+        width: 100%;
+    }
+    
+    .stats-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+/* Shuffle Info */
+.shuffle-info {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50px;
+    display: inline-block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.reshuffle-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.reshuffle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   DARK/LIGHT MODE THEMES
+========================= */
+
+/* Light Theme Variables - Default (Dark theme is default) */
+body.light-mode {
+    --bg-gradient-start: #f0f2f5;
+    --bg-gradient-end: #e0e5ec;
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a5568;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --input-border: rgba(0, 0, 0, 0.1);
+    --placeholder-color: rgba(0, 0, 0, 0.4);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --footer-color: #6b7280;
+}
+
+body.light-mode {
+    background: linear-gradient(135deg, #f0f2f5, #e0e5ec);
+    color: #1a1a2e;
+}
+
+body.light-mode .container,
+body.light-mode .admin-container,
+body.light-mode .auth-container,
+body.light-mode .result-box {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .card h3 {
+    color: #1a1a2e;
+}
+
+body.light-mode p {
+    color: #4a5568;
+}
+
+body.light-mode label {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #1a1a2e;
+}
+
+body.light-mode label:hover {
+    background: rgba(0, 245, 255, 0.1);
+    border-color: rgba(0, 200, 255, 0.3);
+}
+
+body.light-mode input[type="text"],
+body.light-mode input[type="number"],
+body.light-mode input[type="email"],
+body.light-mode input[type="password"] {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1a1a2e;
+}
+
+body.light-mode input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-mode .timer-box {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #7c4dff;
+    color: #1a1a2e;
+}
+
+body.light-mode .timer-label {
+    color: #6b7280;
+}
+
+body.light-mode .lang-btn {
+    color: #4a5568;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .lang-btn:hover {
+    color: #1a1a2e;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .lang-btn.active {
+    color: #fff;
+    background: linear-gradient(135deg, #00f5ff, #7c4dff);
+}
+
+body.light-mode .stat-card {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode .stat-value {
+    color: #7c4dff;
+}
+
+body.light-mode .stat-label {
+    color: #6b7280;
+}
+
+body.light-mode .percentage-container {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode .progress-bar-container {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .grade-box {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .question-item {
+    background: rgba(0, 0, 0, 0.03) !important;
+}
+
+body.light-mode .shuffle-info {
+    background: rgba(0, 0, 0, 0.05);
+    color: #4a5568;
+}
+
+body.light-mode footer {
+    color: #6b7280;
+}
+
+body.light-mode .user-menu span {
+    color: #7c4dff !important;
+}
+
+body.light-mode .user-menu .lang-btn {
+    color: #4a5568;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid #7c4dff;
+    border-radius: 50px;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.3s;
+    width: auto;
+    display: inline-block;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(124, 77, 255, 0.4);
+}
+
+body.light-mode .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #7c4dff;
+}
+
+/* Timer container adjustment */
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+/* Admin Panel Light Mode */
+body.light-mode .admin-title {
+    background: linear-gradient(135deg, #ff3366, #ff6b4a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-mode .delete-btn {
+    color: #ff3366 !important;
+}
+
+body.light-mode .delete-btn:hover {
+    color: #cc0044 !important;
+}
+
+body.light-mode hr {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .reshuffle-btn {
+    background: rgba(0, 0, 0, 0.05);
+    color: #4a5568;
+}
+
+body.light-mode .reshuffle-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
